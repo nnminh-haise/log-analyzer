@@ -167,23 +167,3 @@ def main():
 
 
 main()
-
-
-# for log_entry in get_log_in_range(
-#     le_list, "2023-12-07 10:00:00", "2023-12-07 01:00:00"
-# ):
-#     print(log_entry)
-
-# print("----")
-
-# for log_entry in le_list:
-#     print(log_entry)
-
-# statistic_result = lu.analyze_log_entries(le_dict)
-# for key in statistic_result.keys():
-#     print(f"{statistic_result[key]} log_entries at {key} level")
-
-# for key in le_dict.keys():
-#     print(f"Log level: {key}")
-#     for entry in le_dict[key]:
-#         print(entry)
