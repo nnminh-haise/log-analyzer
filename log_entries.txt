@@ -1,0 +1,7 @@
+2023-12-07 10:15:30 INFO Application started
+2023-12-07 10:20:45 WARNING Disk space is running low
+2023-12-07 10:25:12 ERROR Connection failed: server unreachable
+2023-12-07 10:30:01 INFO User logged in: username123
+2023-12-07 10:35:40 DEBUG Processing data
+2023-12-07 10:40:55 ERROR Critical error: system crash
+2023-12-07 10:45:22 INFO Application shutdown
