@@ -38,32 +38,11 @@ def show_menu():
             time.sleep(delay_time_sec)
 
 
-def query_user_selection(selection: int):
-    filepath = "log.txt"
-    le_list, le_dict = lu.create_log_entry_list_and_dict(
-        le.read_log_from_file(filepath)
-    )
-
+def query_user_selection(selection: int, le_list, le_dict, filepath):
     os.system("cls")
-    if selection is 0:
-        try:
-            log_file = open(filepath, "w")
-
-            for log_entry in le_list:
-                log_file.write(
-                    f"{log_entry.timestamp} {log_entry.log_level} {log_entry.message}\n"
-                )
-
-        except IOError as err:
-            print(f"ERROR: {err}")
-        finally:
-            log_file.close()
-
+    if selection == 0:
         return 0
-
-    if selection in (2):
-        print("Function is in development!")
-    elif selection is 1:
+    elif selection == 1:
         while True:
             os.system("cls")
             print("Creating new Log entry:\n")
@@ -75,16 +54,54 @@ def query_user_selection(selection: int):
             if lu.is_valid_timestamp(timestamp) is False:
                 print("Invalid timestamp!")
                 time.sleep(1.5)
+            elif log_level not in ("INFO", "WARNING", "DEBUG", "ERROR"):
+                print("Invalid log level!")
+                time.sleep(1.5)
+            else:
+                new_log_entry = le.LogEntry(timestamp, log_level, message)
+                # Add new log entry to list
+                log_entry_index = lu.upper_bound_log_entry(le_list, timestamp)
+                le_list.insert(log_entry_index, new_log_entry)
+                # Add new log entry to dict
+                le_dict.setdefault(log_level, []).append(new_log_entry)
 
-    elif selection is 3:
+                print("Successfully created new log entry!")
+                break
+    elif selection == 2:
+        while True:
+            os.system("cls")
+            print("Removing Log entry:\n")
+
+            timestamp = input("Timestamp: ")
+
+            if lu.is_valid_timestamp(timestamp) is False:
+                print("Invalid timestamp!")
+                time.sleep(1.5)
+            else:
+                targeting_entries = [e for e in le_list if e.timestamp == timestamp]
+                print("Removale log entries:")
+                index = 1
+                for e in targeting_entries:
+                    print(f"[{index}] - {e}")
+                    index += 1
+
+                remove_item_index = int(input("Remove entry index: "))
+                remove_target = targeting_entries[remove_item_index - 1]
+                le_dict[remove_target.log_level].remove(remove_target)
+                le_list.remove(remove_target)
+                print("Successfully remove entry!")
+
+                break
+
+    elif selection == 3:
         print("Log entries:\n")
         for log_entry in le_list:
             print(log_entry)
-    elif selection is 4:
+    elif selection == 4:
         le_list, le_dict = lu.create_log_entry_list_and_dict(
             le.read_log_from_file(filepath)
         )
-    elif selection is 5:
+    elif selection == 5:
         print("Statistic:\n")
         statistic_result = lu.analyze_log_entries(le_dict)
         total_entries = 0
@@ -98,7 +115,7 @@ def query_user_selection(selection: int):
         print(
             f"Total amount of entries: {total_entries} {'entries' if total_entries > 1 else 'entry'}."
         )
-    elif selection is 6:
+    elif selection == 6:
         print("Selecting entries between timestamps:\n")
 
         begin_timestamp = input("Begin timestamp: ")
@@ -108,7 +125,7 @@ def query_user_selection(selection: int):
         )
         if queried_log_entries is None:
             pass
-        elif len(queried_log_entries) is 0:
+        elif len(queried_log_entries) == 0:
             print("No entries!")
         else:
             print()
@@ -123,8 +140,25 @@ def query_user_selection(selection: int):
 
 
 def main():
+    filepath = "log_entries.txt"
+    le_list, le_dict = lu.create_log_entry_list_and_dict(
+        le.read_log_from_file(filepath)
+    )
     while True:
-        if query_user_selection(show_menu()) is 0:
+        if query_user_selection(show_menu(), le_list, le_dict, filepath) == 0:
+            try:
+                log_file = open(filepath, "w")
+
+                for log_entry in le_list:
+                    log_file.write(
+                        f"{log_entry.timestamp} {log_entry.log_level} {log_entry.message}\n"
+                    )
+
+            except IOError as err:
+                print(f"ERROR: {err}")
+            finally:
+                log_file.close()
+
             os.system("cls")
             print("Closing...")
             time.sleep(1)
