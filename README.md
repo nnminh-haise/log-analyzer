@@ -1,8 +1,8 @@
 # Log Analyzer
 
-> *A small python script for analyzing log entries.*
+> *A small Python script for analyzing log entries.*
 
-One day, I went to a coffee store on Ung Văn Khiêm street and ask Chat GPT for a small Python project that I could complete in 2 - 3 days and this project is what GPT gave me.
+One day, I went to a coffee store on Ung Văn Khiêm Street and asked Chat GPT for a small Python project that I could complete in 2 - 3 days and this project is what GPT gave me.
 
 ## Project description
 
@@ -67,8 +67,18 @@ This project is designed to be flexible, and you can expand it based on your int
 
 ---
 
-## My thoughs
+## My thoughts
 
-After a 10 minutes reading the description, I got my hand on the project right away. It took me 3 hours to finish all the core functionality of the project. Then the laptop run out of battery so I had to take a break from that. Then I came back the next day to finish the last two functions.
+After 10 minutes of reading the description, I got my hand on the project right away. It took me 3 hours to finish all the core functionality of the project. Then the laptop ran out of battery so I had to take a break from that. Then I came back the next day to finish the last two functions.
 
-The project came out kind of okay. I planned to make a CLI but I used console interface instead. My plan for the next version will be converting the current projec to a CLI application and add more features to it.
+The project came out okay. I planned to make a CLI but I used a console interface instead. My plan for the next version will be to convert the current project to a CLI application and add more features to it.
+
+## Usage
+
+Requirements: install python.
+
+Run the script by running the `log_analyzer.py` script using the below command:
+
+```
+python log_analyzer.py
+```
