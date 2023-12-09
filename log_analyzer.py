@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 
-import datetime
 import os
-from sqlite3 import Timestamp
 import time
 import log_entry as le
 import log_util as lu
